@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>structure.sh - generate shareable directory trees in one command ✨</title>
+      <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+      <link rel="apple-touch-icon" sizes="57x57" href="{{ url_for('static', filename='apple-icon-57x57.png') }}">
+      <link rel="apple-touch-icon" sizes="60x60" href="{{ url_for('static', filename='apple-icon-60x60.png') }}">
+      <link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', filename='apple-icon-72x72.png') }}">
+      <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', filename='apple-icon-76x76.png') }}">
+      <link rel="apple-touch-icon" sizes="114x114" href="{{ url_for('static', filename='apple-icon-114x114.png') }}">
+      <link rel="apple-touch-icon" sizes="120x120" href="{{ url_for('static', filename='apple-icon-120x120.png') }}">
+      <link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='apple-icon-144x144.png') }}">
+      <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='apple-icon-152x152.png') }}">
+      <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-icon-180x180.png') }}">
+      <link rel="icon" type="image/png" sizes="192x192"  href="{{ url_for('static', filename='android-icon-192x192.png') }}">
+      <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+      <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='favicon-96x96.png') }}">
+      <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+      <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+      <meta name="msapplication-TileColor" content="#000">
+      <meta name="msapplication-TileImage" content="{{ url_for('static', filename='ms-icon-144x144.png') }}">
+      <meta name="theme-color" content="#000">
+      <meta name="description" content="structure.sh - generate shareable directory trees in one command ✨">
+      <meta property="og:title" content="structure.sh">
+      <meta property="og:description" content="generate shareable directory trees in one command ✨">
+      <meta property="og:image" content="{{ url_for('static', filename='ms-icon-144x144.png') }}">
+      <meta property="og:url" content="https://structure.sh">
+      <meta property="og:type" content="website">
+      <script defer src="https://track37.com/script.js" data-website-id="5ecc0779-c3c4-45d4-a1f5-f118ddbc529b"></script>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=DM+Sans:ital,opsz@0,9..40;1,9..40&family=Figtree:ital,wght@0,300..900;1,300..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <style>
+         :root {
+         --primary: #4CAF50;
+         --dark: #2E7D32;
+         --light: #E8F5E9;
+         --gray: #616161;
+         --code-bg: #2b2b2b;
+         }
+         body {
+         font-family:Figtree,sans-serif;
+         line-height: 1.6;
+         color: #333;
+         max-width: 800px;
+         margin: 0 auto;
+         padding: 20px;
+         }
+         header {
+         text-align: center;
+         margin: 40px 0;
+         }
+         h1 {
+         color: var(--dark);
+         margin-bottom: 10px;
+         font-size: 2.5rem;
+         }
+         .tagline {
+         color: var(--gray);
+         font-size: 1.2rem;
+         margin-bottom: 30px;
+         }
+         .install-box {
+         background-color: var(--light);
+         border-left: 4px solid var(--primary);
+         padding: 20px;
+         border-radius: 4px;
+         margin: 30px 0;
+         }
+         code {
+         font-family: 'Courier New', Courier, monospace;
+         background-color: var(--code-bg);
+         color: #fff;
+         padding: 15px;
+         border-radius: 4px;
+         display: block;
+         overflow-x: auto;
+         white-space: pre;
+         }
+         .features {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+         gap: 20px;
+         margin: 40px 0;
+         }
+         .feature-card {
+         border: 1px solid #eee;
+         padding: 20px;
+         border-radius: 4px;
+         text-align: center;
+         }
+         .feature-card h3 {
+         color: var(--dark);
+         margin-top: 0;
+         }
+         .feature-icon {
+         font-size: 2rem;
+         color: var(--primary);
+         margin-bottom: 15px;
+         }
+         .btn {
+         display: inline-block;
+         background-color: var(--primary);
+         color: white;
+         padding: 10px 20px;
+         border-radius: 4px;
+         text-decoration: none;
+         font-weight: bold;
+         transition: background-color 0.3s;
+         }
+         .btn:hover {
+         background-color: var(--dark);
+         }
+         .example {
+         background-color: #f9f9f9;
+         padding: 20px;
+         border-radius: 4px;
+         margin: 30px 0;
+         overflow-x: auto;
+         }
+         pre {
+         margin: 0;
+         white-space: pre;
+         font-family: 'Courier New', Courier, monospace;
+         }
+         .sharing-demo {
+         display: flex;
+         flex-direction: column;
+         gap: 20px;
+         margin: 40px 0;
+         align-items: center;
+         }
+         .sharing-flow {
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: center;
+         gap: 15px;
+         max-width: 700px;
+         }
+         .sharing-step {
+         flex: 1;
+         min-width: 200px;
+         text-align: center;
+         padding: 15px;
+         background-color: var(--light);
+         border-radius: 4px;
+         }
+         .sharing-step-icon {
+         font-size: 2rem;
+         color: var(--dark);
+         margin-bottom: 10px;
+         }
+         .sharing-step-arrow {
+         display: flex;
+         align-items: center;
+         color: var(--dark);
+         font-size: 1.5rem;
+         }
+         @media (max-width: 768px) {
+         .sharing-flow {
+         flex-direction: column;
+         align-items: center;
+         }
+         .sharing-step {
+         width: 100%;
+         }
+         .sharing-step-arrow {
+         transform: rotate(90deg);
+         margin: 10px 0;
+         }
+         }
+         footer {
+         text-align: center;
+         margin-top: 60px;
+         padding-top: 20px;
+         border-top: 1px solid #eee;
+         color: var(--gray);
+         }
+      </style>
+   </head>
+   <body>
+      <header>
+         <h1>structure.sh</h1>
+         <p class="tagline">Generate shareable directory trees in one command</p>
+      </header>
+      <div class="install-box">
+         <h2>Install &amp; Use</h2>
+         <p>Run this command in your terminal:</p>
+         <code>curl -s https://structure.sh/install | bash</code>
+         <p>Then use it in any directory:</p>
+         <code>structure</code>
+      </div>
+      <div class="features">
+         <div class="feature-card">
+            <div class="feature-icon">
+               <i class="fas fa-terminal"></i>
+            </div>
+            <h3>Simple</h3>
+            <p>One command to generate a tree of any directory</p>
+         </div>
+         <div class="feature-card">
+            <div class="feature-icon">
+               <i class="fas fa-tree"></i>
+            </div>
+            <h3>Clean</h3>
+            <p>Generates an ASCII tree of your file structure</p>
+         </div>
+         <div class="feature-card">
+            <div class="feature-icon">
+               <i class="fas fa-share-alt"></i>
+            </div>
+            <h3>Shareable</h3>
+            <p>Generate links to share with others instantly</p>
+         </div>
+         <!--<div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-cogs"></i>
+            </div>
+            <h3>Versatile</h3>
+            <p>Works with any project in any language</p>
+            </div>-->
+      </div>
+      <h2>Share Your Project Structure</h2>
+      <p>The sharing feature lets you generate a shareable URL for your project structure with a single command. Perfect for documentation, READMEs, or sharing with colleagues!</p>
+      <div class="sharing-demo">
+         <div class="sharing-flow">
+            <div class="sharing-step">
+               <div class="sharing-step-icon">
+                  <i class="fas fa-terminal"></i>
+               </div>
+               <strong>Run command</strong>
+               <p>structure -s</p>
+            </div>
+            <div class="sharing-step-arrow">
+               <i class="fas fa-arrow-right"></i>
+            </div>
+            <div class="sharing-step">
+               <div class="sharing-step-icon">
+                  <i class="fas fa-cloud-upload-alt"></i>
+               </div>
+               <strong>Auto-upload</strong>
+               <p>Your structure is securely shared</p>
+            </div>
+            <div class="sharing-step-arrow">
+               <i class="fas fa-arrow-right"></i>
+            </div>
+            <div class="sharing-step">
+               <div class="sharing-step-icon">
+                  <i class="fas fa-link"></i>
+               </div>
+               <strong>Get URL</strong>
+               <p>Copy and share with anyone</p>
+            </div>
+         </div>
+         <a href="https://structure.sh/demo" class="btn">See Example</a>
+      </div>
+      <h2>How It Works</h2>
+      <p>Structure scans your directories and generates an ASCII tree representation of your file structure. Perfect for documentation, READMEs, or just getting a better view of your project.</p>
+      <div class="example">
+         <h3>Example Output:</h3>
+         <pre>my-project/
+├── src/
+│   ├── components/
+│   │   ├── Header.js
+│   │   ├── Footer.js
+│   │   └── Sidebar.js
+│   ├── utils/
+│   │   └── helpers.js
+│   └── App.js
+├── public/
+│   ├── index.html
+│   └── favicon.ico
+├── tests/
+│   └── App.test.js
+├── package.json
+├── README.md
+└── .gitignore</pre>
+      </div>
+      <h2>Options &amp; Usage</h2>
+      <p>Structure comes with several useful options:</p>
+      <code>structure                       # Map current directory
+structure /path/to/dir          # Map specific directory
+structure -o output.txt         # Specify output file
+structure -i node_modules,dist  # Ignore additional directories
+structure -s                    # Generate shareable URL</code>
+      <div style="text-align: center; margin: 40px 0;">
+         <a href="https://github.com/dotcomdudee/structure" class="btn" target="_blank">View on GitHub</a>
+      </div>
+      <footer>
+         <p>&copy; 2025 structure.sh</p>
+      </footer>
+   </body>
+</html>
