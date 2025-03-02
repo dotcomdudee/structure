@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>{{ project_name }} | structure.sh</title>
+      <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+      <link rel="apple-touch-icon" sizes="57x57" href="{{ url_for('static', filename='apple-icon-57x57.png') }}">
+      <link rel="apple-touch-icon" sizes="60x60" href="{{ url_for('static', filename='apple-icon-60x60.png') }}">
+      <link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', filename='apple-icon-72x72.png') }}">
+      <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', filename='apple-icon-76x76.png') }}">
+      <link rel="apple-touch-icon" sizes="114x114" href="{{ url_for('static', filename='apple-icon-114x114.png') }}">
+      <link rel="apple-touch-icon" sizes="120x120" href="{{ url_for('static', filename='apple-icon-120x120.png') }}">
+      <link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='apple-icon-144x144.png') }}">
+      <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='apple-icon-152x152.png') }}">
+      <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-icon-180x180.png') }}">
+      <link rel="icon" type="image/png" sizes="192x192"  href="{{ url_for('static', filename='android-icon-192x192.png') }}">
+      <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+      <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='favicon-96x96.png') }}">
+      <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+      <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+      <meta name="msapplication-TileColor" content="#000">
+      <meta name="msapplication-TileImage" content="{{ url_for('static', filename='ms-icon-144x144.png') }}">
+      <meta name="theme-color" content="#000">
+      <meta name="description" content="structure.sh - generate shareable directory trees in one command ✨">
+      <meta property="og:title" content="structure.sh">
+      <meta property="og:description" content="generate shareable directory trees in one command ✨">
+      <meta property="og:image" content="{{ url_for('static', filename='ms-icon-144x144.png') }}">
+      <meta property="og:url" content="https://structure.sh">
+      <meta property="og:type" content="website">
+      <meta name="robots" content="noindex">
+      <script defer src="https://track37.com/script.js" data-website-id="5ecc0779-c3c4-45d4-a1f5-f118ddbc529b"></script>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=DM+Sans:ital,opsz@0,9..40;1,9..40&family=Figtree:ital,wght@0,300..900;1,300..900&family=Geist:wght@100..900&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <style>
+         :root {
+         --primary: #4CAF50;
+         --dark: #2E7D32;
+         --light: #E8F5E9;
+         --gray: #616161;
+         --code-bg: #2b2b2b;
+         --text: #212121;
+         }
+         body {
+         font-family:Figtree,sans-serif;
+         line-height: 1.6;
+         color: var(--text);
+         max-width: 1000px;
+         margin: 0 auto;
+         padding: 20px;
+         background-color: #fafafa;
+         }
+         header {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         margin-bottom: 30px;
+         padding-bottom: 15px;
+         border-bottom: 1px solid #eee;
+         }
+         .logo a {
+         color: var(--dark);
+         text-decoration: none;
+         font-weight: bold;
+         font-size: 1.5rem;
+         }
+         h1 {
+         font-size: 1.8rem;
+         color: var(--dark);
+         margin: 0;
+         }
+         .structure-container {
+         background-color: #fff;
+         border-radius: 8px;
+         box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+         overflow: hidden;
+         }
+         .structure-header {
+         background-color: var(--light);
+         padding: 20px;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         border-bottom: 1px solid #eee;
+         }
+         .structure-header h2 {
+         margin: 0;
+         font-size: 1.2rem;
+         color: var(--dark);
+         }
+         .structure-actions {
+         display: flex;
+         gap: 10px;
+         }
+         .btn {
+         padding: 8px 16px;
+         border-radius: 4px;
+         text-decoration: none;
+         font-size: 0.9rem;
+         font-weight: 500;
+         cursor: pointer;
+         border: none;
+         display: inline-flex;
+         align-items: center;
+         gap: 6px;
+         font-family:Figtree,sans-serif;
+         }
+         .btn-primary {
+         background-color: var(--primary);
+         color: white;
+         font-family:Figtree,sans-serif;
+         }
+         .btn-outline {
+         background-color: transparent;
+         color: var(--dark);
+         border: 1px solid var(--primary);
+         }
+         .btn:hover {
+         opacity: 0.9;
+         }
+         .structure-content {
+         padding: 20px;
+         overflow-x: auto;
+         }
+         pre {
+         font-family: 'Courier New', Courier, monospace;
+         margin: 0;
+         white-space: pre;
+         font-size: 15px;
+         }
+         footer {
+         text-align: center;
+         margin-top: 40px;
+         color: var(--gray);
+         font-size: 0.9rem;
+         }
+         .copy-tooltip {
+         position: fixed;
+         background-color: var(--dark);
+         color: white;
+         padding: 6px 12px;
+         border-radius: 4px;
+         z-index: 100;
+         display: none;
+         }
+         /* Dark mode toggle */
+         .dark-mode-toggle {
+         border: none;
+         background: none;
+         cursor: pointer;
+         font-size: 1.2rem;
+         color: var(--gray);
+         }
+         /* Dark mode styles */
+         body.dark-mode {
+         background-color: #121212;
+         color: #e0e0e0;
+         }
+         body.dark-mode .structure-container {
+         background-color: #1e1e1e;
+         }
+         body.dark-mode .structure-header {
+         background-color: #2a2a2a;
+         border-color: #333;
+         }
+         body.dark-mode header {
+         border-color: #333;
+         }
+         body.dark-mode .btn-outline {
+         border-color: #777;
+         color: #e0e0e0;
+         }
+         body.dark-mode .logo a, 
+         body.dark-mode h1, 
+         body.dark-mode .structure-header h2 {
+         color: #e0e0e0;
+         }
+         @media (max-width: 768px) {
+         .structure-header {
+         flex-direction: column;
+         gap: 15px;
+         align-items: flex-start;
+         }
+         .structure-actions {
+         width: 100%;
+         justify-content: space-between;
+         }
+         }
+      </style>
+   </head>
+   <body>
+      <div class="copy-tooltip" id="copyTooltip">Copied to clipboard!</div>
+      <header>
+         <div class="logo">
+            <a href="/">structure.sh</a>
+         </div>
+         <button class="dark-mode-toggle" id="darkModeToggle">
+         <i class="fas fa-moon"></i>
+         </button>
+      </header>
+      <h1>Project Structure: {{ project_name }}</h1>
+      <div class="structure-container">
+         <div class="structure-header">
+            <h2>Directory Tree</h2>
+            <div class="structure-actions">
+               <a href="/raw/{{ share_id }}" class="btn btn-outline" target="_blank">
+               <i class="fas fa-file-alt"></i> Raw
+               </a>
+               <button class="btn btn-outline" id="copyBtn">
+               <i class="fas fa-copy"></i> Copy
+               </button>
+               <a href="/" class="btn btn-primary">
+               <i class="fas fa-home"></i> Home
+               </a>
+            </div>
+         </div>
+         <div class="structure-content">
+            <pre id="structureContent">{{ content }}</pre>
+         </div>
+      </div>
+      <footer>
+         <p>Generated using <a href="https://structure.sh" style="text-decoration: none;">structure.sh</a> | generate shareable directory trees in one command ✨</p>
+      </footer>
+      <script>
+         // Copy functionality
+         const copyBtn = document.getElementById('copyBtn');
+         const structureContent = document.getElementById('structureContent');
+         const copyTooltip = document.getElementById('copyTooltip');
+         
+         copyBtn.addEventListener('click', () => {
+             // Copy text
+             const range = document.createRange();
+             range.selectNode(structureContent);
+             window.getSelection().removeAllRanges();
+             window.getSelection().addRange(range);
+             document.execCommand('copy');
+             window.getSelection().removeAllRanges();
+             
+             // Show tooltip
+             const rect = copyBtn.getBoundingClientRect();
+             copyTooltip.style.top = `${rect.top - 40}px`;
+             copyTooltip.style.left = `${rect.left}px`;
+             copyTooltip.style.display = 'block';
+             
+             // Hide tooltip after a delay
+             setTimeout(() => {
+                 copyTooltip.style.display = 'none';
+             }, 2000);
+         });
+         
+         // Dark mode toggle
+         const darkModeToggle = document.getElementById('darkModeToggle');
+         const moonIcon = darkModeToggle.querySelector('i');
+         
+         // Always start with light mode as default
+         const savedTheme = localStorage.getItem('theme');
+         
+         // Only use dark mode if explicitly saved
+         if (savedTheme === 'dark') {
+             document.body.classList.add('dark-mode');
+             moonIcon.classList.remove('fa-moon');
+             moonIcon.classList.add('fa-sun');
+         }
+         // Otherwise use light mode regardless of system preference
+         
+         darkModeToggle.addEventListener('click', () => {
+             document.body.classList.toggle('dark-mode');
+             
+             if (document.body.classList.contains('dark-mode')) {
+                 localStorage.setItem('theme', 'dark');
+                 moonIcon.classList.remove('fa-moon');
+                 moonIcon.classList.add('fa-sun');
+             } else {
+                 localStorage.setItem('theme', 'light');
+                 moonIcon.classList.remove('fa-sun');
+                 moonIcon.classList.add('fa-moon');
+             }
+         });
+      </script>
+   </body>
+</html>
